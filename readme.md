@@ -1,4 +1,4 @@
-# RSpec
+# Testing with RSpec
 
 ## Learning Objectives
 - Explain the purpose and benefits of Unit testing
@@ -162,13 +162,14 @@ describe Person do
   end
 end
 ```
-**Q. What does `expect(@matt).to be_an_instance_of(Person)` mean in regular English?**
+>What does `expect(@matt).to be_an_instance_of(Person)` mean in regular English?**
 
 ---
 
-### You-Do - Modify Person.rb to fail tests (5 min)
 
-MODIFY
+###TODO: MODIFY
+## Challenge: Modify Person.rb to fail tests (5 min)
+
 
 **Instructions:**
 
@@ -184,7 +185,7 @@ MODIFY
 
   * Play with it! See how your actions in the code AND in the specs affect the output. See the specs fail, then make them pass again.
 
-## We-Do - Create a Unit Test using RSpec
+## Creating a Unit Test using RSpec
 
 We are going to be creating something similar to the above example. Instead we will be writing a spec for creating a new ruby class of `Dog`
 
@@ -239,7 +240,7 @@ $ rspec --init
 
 >Within `.rspec` file add `--color` OR in `spec/spec_helper.rb` add `config.color = true`
 
-### Writing our first tests (10 min)
+### Writing our first tests
 
 Now, in our `models/dog.rb` file let's add the following code:
 
@@ -329,7 +330,7 @@ describe Dog do
   it "has a String for a Name"
 end
 ```
-**Q. Run `rspec` again. Anything crazy going on?**
+>Run `rspec` again. Anything crazy going on?**
 
 ---
 You might have noticed when we ran `rspec` before that there was a little asterisk `*` at the top of the message, and now there are two `**`. This indicates two pending tests.
@@ -349,7 +350,7 @@ describe Dog do
 end
 ```
 
-**Q. Run `rspec` again. What's different?**
+>Run `rspec` again. What's different?**
 
 ---
 
@@ -363,9 +364,7 @@ Finished in 0.0005 seconds (files took 0.07273 seconds to load)
 
 Adding `do...end` makes RSpec think this test is an actual test -- not pending anymore. There's no malfunctioning code inside this test, so RSpec is saying it passes. Asterisk `*` indicates a pending test, and dot `.` indicates a passing test.
 
-## Break (10 min)
-
-## We-Do: Passing Our First Test (10 min)
+## Passing Our First Test
 
 Let's make these tests actually test something. Inside the first test, make (but don't save) a new Dog and save it to a variable.
 
@@ -434,7 +433,7 @@ expected: "Integer"
 
 Before moving on, let's change the first test so it passes again!
 
-## You-Do: Make the second test pass (10 min)
+## Challenge: Make the second test pass
 
 **Instructions:**
 
@@ -444,13 +443,13 @@ Before moving on, let's change the first test so it passes again!
 
 [Link to see solution code](https://github.com/ga-wdi-lessons/rspec/blob/master/solution.md)
 
-## You-Do: Create a new Spec (5 min)
+## Challenge: Create a new Spec
 
 **Instructions:**
 
 1. Write a Spec that confirms the following: "has a hunger level thats an Integer"
 
-## We-Do: Additional Tests Using Context (5 min)
+## Adding Additional Tests Using Context
 
 Now, let's write a test for our method `set_hunger_level` that will be changing our dog's hunger level. Add in the following:
 
@@ -480,13 +479,13 @@ The hash `#` in front of `set_hunger_level` also doesn't do anything -- it's jus
 
  <!-- RSpec is all about making tests easy to read from an English standpoint. -->
 
-## You-Do: Making the `#set_hunger_level` tests pass (10 min)
+## Making the `#set_hunger_level` tests pass
 
 **Instructions:**
 
 Given what we have done in class so far, spend the next 10 minutes getting our `'#set_hunger_level'` tests to pass!
 
-## DRYing it up (10 min)
+## DRYing it up
 
 **Which lines on here repeat?**
 ```rb
@@ -574,7 +573,7 @@ What changed? We moved the `Dog.new("Rover", 10)`, into a `before:each` block.  
 
 Run `rspec`. It should still work.
 
-### Change the `:each` to `:all`. Run `rspec`. What's different?
+>What if we change the `:each` to `:all`? What's difference?
 
 **before:each** is a block of code that runs *before each* test inside it. Try adding a `puts "*" * 50` inside `before:each`, then running `rspec`. You should see two lines of asterisks pop up.
 
@@ -638,15 +637,13 @@ RSpec also provides a "let" helper, which works the same way.  You can use it to
 
 You can have `subject`, `let`, and `before:each` right next to each other.
 
-## Break (10 min)
+## Garnet Example
 
-## Garnet Example (5 min)
+RSpec is used to test Garnet, the attendance/homework tracking app. Before any changes get pushed up to our live server, they have to pass all the tests -- an automated system rejects the changes if they don't pass.
 
-We use RSpec to test Garnet, the attendance/homework tracking app. Before any changes get pushed up to our live server, they have to pass all the tests -- an automated system rejects the changes if they don't pass.
+[Here's what that looks like. Seem familiar?](https://travis-ci.org/ga-dc/garnet/builds/89503768#L241) Clearly there are a lot of tests that are just pending and don't do anything yet -- almost 60!
 
-[Here's what that looks like. Seem familiar?](https://travis-ci.org/ga-dc/garnet/builds/89503768#L241) Clearly there are a lot of tests that are just pending and don't do anything yet -- almost 60! These dramatically help us plan.
-
-## You-Do: Let's Go Shopping (20 min)
+## Challenge: Let's Go Shopping
 
 **Instructions:**
 
@@ -661,7 +658,7 @@ We use RSpec to test Garnet, the attendance/homework tracking app. Before any ch
 
   [RSpec documentation Built in Matchers](https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers).  Make sure you are on the version that corresponds to your installed library (v3.3).
 
-## The Flow (5 min)
+## The Flow
 
 Most testing frameworks, including RSpec, follow this flow:
 
@@ -674,17 +671,17 @@ Think `Red/Green/Refactor`
 * Each spec should run in isolation.  
 
 
-## You-Do: Cereal Robot Exercise (20 min)
+## Challenge: Cereal Robot Exercise
 
 [Watch this video.](https://www.youtube.com/watch?v=E2evC2xTNWg)
 
 Split up into groups of 4. For 15 minutes, on a whiteboard, work with your group to draft the unit tests for this cereal-delivering robot.
 
-Your goal: When all the tests pass, that means the robot works. However, you're only writing **pending** tests -- don't actually write the code that would make the tests pass.
+Goal: When all the tests pass, that means the robot works. However, you're only writing **pending** tests -- don't actually write the code that would make the tests pass.
 
 Constraints: Try to write everything as `describe`, `context`, and `it` blocks. Method names should start with `#`.
 
-## Closing (5 min)
+## Closing
 
 ### Quiz Questions:
 
@@ -694,21 +691,20 @@ Constraints: Try to write everything as `describe`, `context`, and `it` blocks. 
 - Describe TDD Cycle/Mantra
 - Explain what is RSpec's basic syntax. Specially how does `describe` and `context` differ?
 
->Answers
+<details><summary>Sample answers</summary>
 
->1. Design/architecture/maintainability/fewer bugs.
+1. Design/architecture/maintainability/fewer bugs.
 2. Unit tests are intended to test small, little blocks of code, and make sure a specific input results in a specific output. They are useful for us as developers. Functional tests verify our apps at the level of user interaction.  They visit web pages, click on links, validate the DOM.  
 3. RSpec is a testing framework for the Ruby, makes writing tests much more simple for us as developers! We can use Rspec to write unit tests.
 4. Red, Green, Refactor.  We write a test that fails, indicating that the feature is not supported.  Then, we adjust code until it passes (turns Green).  Lastly, we refactor our app using the knowledge we gained from supporting the spec.
 5. "Describe" and "Context" FUNCTIONALLY do the same thing (context is an alias of describe) The difference is the intent they express.
 "```describe```" indicates what I'm testing, typically a class or the name of a method while " ```context```" indicates a specific set of circumstances that effect the test (think WHEN!).
 
+</details>
+
 ### Additional Resources
-- [Learn Ruby via RSpec]( https://github.com/ga-dc/learn_ruby_via_rspec)
+- [Learn Ruby via RSpec](https://github.com/ga-dc/learn_ruby_via_rspec)
 - [Code School RSpec](https://www.codeschool.com/courses/testing-with-rspec)
 - [RSpec for Newbies](http://code.tutsplus.com/tutorials/ruby-for-newbies-testing-with-rspec--net-21297)
-- Mocks & Stubs]
-- https://www.relishapp.com/rspec/rspec-mocks/docs
-- http://www.martinfowler.com/bliki/TestDouble.html
-- RSpec Cheatsheets:
-- https://www.anchor.com.au/wp-content/uploads/rspec_cheatsheet_attributed.pdf
+- [Mocks](https://github.com/rspec/rspec-mocks)
+- [RSpec Cheatsheets](https://www.anchor.com.au/wp-content/uploads/rspec_cheatsheet_attributed.pdf)
