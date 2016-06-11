@@ -1,5 +1,3 @@
-require_relative '../models/person'  # a reference to our code
-
 describe Person do
   describe "Constructor" do
     before(:each) do
