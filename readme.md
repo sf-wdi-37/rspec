@@ -164,8 +164,6 @@ end
 ```
 >What does `expect(@matt).to be_an_instance_of(Person)` mean in regular English?**
 
----
-
 ## Creating a Unit Test using RSpec
 
 We are going to be creating something similar to the above example. Instead we will be writing a spec for creating a new ruby class of `Dog`
@@ -190,6 +188,7 @@ Then, in your Terminal:
 $ bundle install
 $ rspec
 ```
+
 >After running `rspec`, you should get a message saying "No examples found." When it says "examples", it means "tests". It's saying, "You haven't written any tests for me to run!"
 
 #### Set up the directory
