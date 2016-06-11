@@ -3,34 +3,52 @@
 ## Learning Objectives
 - Explain the purpose and benefits of Unit testing
 - Describe TDD and it's importance
-- Explain what is RSpec
+- Explain RSpec is
 - Compare and contrast `expectations` and `matchers`
 - Compare and contrast common RSpec terms including `"describe"`, `"it"`, `"context"`, `before(:each)`, `before(:all)`, `"subject"`,  `"let"`
 - Write and pass unit tests using RSpec
 
-## Framing: Introduction to Test-Driven Development
+## Do You Test?
 
-### Why do we implement tests in our applications? (5 min)
+We first encountered Test Driven Development during Unit 2, when we ran & passed unit tests in Ruby using RSpec.
 
-As our applications increase in complexity, we need a safety net.  We need something to ensure that we "Do no harm".  We need a battery of automated tests.  These are specifications about YOUR code that you can run to ensure your code is doing what it should.  
+####Place yourselves somewhere in the following ranges:
 
-Think back to the way you code.  You create a part of a web page, then you browse to that page to test it.  To ensure that it is doing as you expect.  Then you add another feature.  And test both features.  Then you add a third feature and test... just the third feature.  Imagine if you had a battery of automated specs, which run against your code, so you can see if your new changes fit your new requirements and EVERY requirement that came before this.
+* I have used TDD **or** I have never used TDD
 
-### Unit testing (5 min)
+* I love the idea of TDD **or** I hate the idea of TDD
 
-**Unit tests** check the smallest level. The functionality of a specific method.
+####Thoughts:
 
-**Acceptance tests** verify our apps at the level of user interaction.  Testing for things when users visit web pages, click on links, validate the DOM, etc.  
+* For those of you who are negative to testing, why? What did you or would you do instead?
+* For those of you who are positive to testing, why? What problems did it solve?
+
+<details><summary>Some possible responses...</summary>
+
+* Cons
+ * **Time.** It's a waste of my time and effort to test.
+ * **It's too much.** I can test just fine using the console.
+ * **App complexity.** My app is too simple to require testing.
+* Pros
+ * **Bug detection.** Quickly identify unanticipated errors.
+ * **Code Quality.** Create standards for our code before writing it.
+ * **Time.** Shorten development time through bug detection; allows for [continuous integration](https://en.wikipedia.org/wiki/Continuous_integration).
+ * **Documentation.** Tests act as a documentation of sorts for how our code should work. Helpful to other developers and shareholders.
+ * **Jobs.** Testing is a job requirement across the board.
+
+</details>
+
+## Unit vs Acceptance Tests
+
+**Unit tests** check the smallest level; the functionality of a specific method.
+
+**Acceptance tests** verify our apps at the level of user interaction; testing for things when users take an action like visiting a page, clicking a links, loggin in, etc.  
 
   * The "units" in unit tests are individual methods. Unit tests are intended to test small, little blocks of code, and make sure a specific input results in a specific output.
 
-  * As a rule of thumb, a good unit test should not be more than 5 lines long.
+  * Acceptance tests have a much wider focus. You'd use acceptance testing to make sure a sign-in form works, or that a user who doesn't have admin privileges can see this page, while a user who does have admin privileges can see that page.
 
-  * Functional tests have a much wider focus. You'd use functional testing to make sure a sign-in form works, or that a user who doesn't have admin privileges can see this page, while a user who does have admin privileges can see that page.
-
-Unit testing always should come before functional testing. Functional testing is much less crucial. Unit testing is so important, that...
-
-**Employers give you major bonus points for it!**
+Unit testing always should come before acceptance testing.
 
 You'll see the term **test coverage** pop up pretty often. People are always aiming for "100% test coverage". If your app has 100% test coverage, that means every single method in your app has a unit test verifying that it works.
 
@@ -38,29 +56,11 @@ You'll see the term **test coverage** pop up pretty often. People are always aim
 
 **What are the reasons testing is so important? Why would employers love it so much?**
 
-<!-- Real World Example: DC Tech Startups -->
-<!--5 people from my cohort hired by Accella in charge of creating rspec tests  -->
-<!--Planning on talking about two startups interviewed with and how wished they would have integrated more testing earlier on when developing their applications, it's now a big focus for them, cut corners early on and now need to refactor code base -->
-
-We've asked you to write user stories. Writing unit tests is a very similar process.
+We've asked you to write user stories. Writing unit tests is a very similar process. In fact, user
 
 When we think of "testing" we tend to think of something you do *after* you've created something. With unit tests, you're encouraged to write the tests *first* before you even start writing actual code.
 
-### Turn and talk (5 min)
-
-Turn to a partner and discuss reasons of why would you write tests beforehand?
-
->Answers
-
->When you write tests first, you're creating a tidy little checklist for yourself of things to complete. The **goal of unit tests** is that **when all of the tests pass, your app is complete**.
-
->You're used to thinking the other way around: when the app is complete, all the tests should pass. Writing the tests first forces you to think about what an app really *needs* to do to be complete. It forces you to scope things down to your MVP. It forces you to think of your app as a bunch of little pieces, rather than one big behoemeth.
-
->In short: writing out unit tests, even if you just leave them pending, will make this class much easier, and make you look super-marketable.
-
->This process of writing the tests **first** is called **Test-Driven Development**, or TDD.
-
-### TDD Overview: (5 min)
+## TDD Overview
 
 ![TDD Example](http://joshldavis.com/img/tdd-vs-bdd/tdd-flowchart.png)
 
@@ -80,20 +80,21 @@ Turn to a partner and discuss reasons of why would you write tests beforehand?
 
 * Could be more costly to an organization when there are changes in requirements.
 
-## What is RSpec? (5 min)
+## What is RSpec?
 
 **RSpec** is a testing framework for the Ruby programming language.
 
-RSpec makes it easier to write tests.  It's a Domain Specific Language for writing live specifications about your code.  It was released on May 18, 2007, so it's been around for a while.  It is the defacto testing framework.
+RSpec makes it easier to write tests. Essentially it's a Domain Specific Language for writing live specifications about your code.  It was released on May 18, 2007, so it's been around for a while.
 
-> DSL: "Domain Specific Language" that is created specifically to solve problems in a particular domain and is not intended to be able to solve problems outside it
+> DSL: "Domain Specific Language" that is created specifically to solve problems in a particular domain and is not intended to be able to solve problems outside of it.
 
 ---
-### We-Do: RSpec Example (5 min)
 
-Code is available here: [rspec_person_example](https://github.com/ga-dc/rspec_person_example)
+## RSpec Example
 
-When I run `rspec` in the `rspec_person_example` directory, what do we see?
+Code is available here: [example-tests](./example-tests)
+
+When I run `rspec` in the `example-tests` directory, what do we see?
 
 ```
 Finished in 0.00565 seconds (files took 0.14281 seconds to load)
@@ -110,8 +111,6 @@ rspec_person_example/
 
 2 directories, 3 files
 ```
-
-***Note:*** We are using the term "models" here but don't worry about the naming too much. We will learn much more about models/model in Rails. For now just know that we will be using the term "model" to represent our ruby classes we will be defining.
 
 We have a Person model and a Person spec (a specification or test). This is the typical RSpec convention.  Specs live under the spec directory and echo the models in our system with the `_spec` suffix.
 
@@ -168,6 +167,8 @@ end
 ---
 
 ### You-Do - Modify Person.rb to fail tests (5 min)
+
+MODIFY
 
 **Instructions:**
 
