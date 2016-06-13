@@ -498,35 +498,41 @@ We could use `before`, `let`, or `subject` to help us refactor these specificati
 
 ```ruby
 describe Dog do
-  
-  describe "attributes of a dog" do
-    it "has the class Dog" do
-      expect(@dog).to be_a(Dog)
-    end
-    it "has a String for an Name" do
-      expect(@dog.name).to be_a(String)
-    end
-    it "has an Integer for a hunger level" do
-      expect(@dog.hunger_level).to be_a(Integer)
+  subject(:dog) { Dog.new }
+  describe "::new" do
+    it "initializes a new dog" do
+      expect(dog).to be_a(Dog)
     end
   end
+  describe "#name" do
+    it "allows the reading and writing of a name" do
+      dog.name = "Fido"
+      expect(dog.name).to eq("Fido")
+    end
+  end
+  describe "#name" do
+    it "allows the reading and writing of a hunger level" do
+      dog.hunger_level = 5
+      expect(dog.hunger_level).to eq(5)
+    end
+  end
+  describe "eat" do
+    context "when the dog is hungry" do
+      it "decrements the hunger level when invoked" do
 
-  describe "#set_hunger_level" do
-    context "when new hunger level" do
-      context "is less than 0" do
-        it "sets the hunger level to 0" do
-          @dog.set_hunger_level(-1)
-          expect(@dog.hunger_level).to eq(0)
-        end
-      end
-      context "is greater than 0" do
-        it "sets our hunger level to the new hunger level" do
-          @dog.set_hunger_level(5)
-          expect(@dog.hunger_level).to eq(5)
-        end
+        dog.hunger_level = 5
+        dog.eat
+        expect(dog.hunger_level).to eq(4)
       end
     end
+    context "when the dog is full" do
+      it "doesn't decrement the hunger level when invoked" do
 
+        dog.hunger_level = 0
+        dog.eat
+        expect(dog.hunger_level).to eq(0)
+      end
+    end
   end
 end
 ```
