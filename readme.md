@@ -445,7 +445,7 @@ end
 
 </details>
 
-##Refactoring with `before` blocks
+##Refactoring
 
 Do you see any opportunities to refactor? Identify them...
 
@@ -494,10 +494,13 @@ end
 
 How many times are we writing `dog = Dog.new`? It seems we'll have to do that at the beginning of most specifications.
 
+###Subject Blocks
+
 We could use `before`, `let`, or `subject` to help us refactor these specifications. Let's prefer using `subject` as the dog is the subject, or thing we are testing. `let` is similar, but may be used when one wants to set up a variable that isn't necessarily the subject, for example it could be the food the dog is eating. Whereas `let` and `subject` are used to setup "dependencies", `before` which is best used to setup an action in advance, such as opening a connection with a database.
 
 ```ruby
 describe Dog do
+  # refactors the tests with subject
   subject(:dog) { Dog.new }
   describe "::new" do
     it "initializes a new dog" do
@@ -537,69 +540,55 @@ describe Dog do
 end
 ```
 
-##BEFORE & CONTEXT SET HUNGER LEVEL
+###Before Blocks
 
-**before:each** is a block of code that runs *before each* test inside it. Try adding a `puts "*" * 50` inside `before:each`, then running `rspec`. You should see two lines of asterisks pop up.
+We can further refactor the above code with a `before` block in order to setup the state of our dog by calling a few methods on it.
 
-**before:all** is the same concept, except it only runs **once**, *before all* the tests inside it have started.
-
-### `before` vs `subject`
-
-Now replace the code with this:
-
-```rb
-
+```ruby
 describe Dog do
-
-  subject(:dog) do
-    dog = Dog.new("Rover", 10)
+  subject(:dog) { Dog.new }
+  before do
+    dog.name = "Fido"
+    dog.hunger_level = 5
   end
-
-  describe "attributes of a dog" do
-    it "has the class Dog" do
+  describe "::new" do
+    it "initializes a new dog" do
       expect(dog).to be_a(Dog)
     end
-    it "has a String for an Name" do
-      expect(dog.name).to be_a(String)
-    end
-    it "has an Integer for a hunger level" do
-      expect(dog.hunger_level).to be_a(Integer)
+  end
+  describe "#name" do
+    it "allows the reading and writing of a name" do
+      expect(dog.name).to eq("Fido")
     end
   end
-
-  describe "#set_hunger_level" do
-    context "when new hunger level" do
-      context "is less than 0" do
-        it "sets the hunger level to 0" do
-          dog.set_hunger_level(-1)
-          expect(dog.hunger_level).to eq(0)
-        end
-      end
-      context "is greater than 0" do
-        it "sets our hunger level to the new hunger level" do
-          dog.set_hunger_level(5)
-          expect(dog.hunger_level).to eq(5)
-        end
+  describe "#name" do
+    it "allows the reading and writing of a hunger level" do
+      expect(dog.hunger_level).to eq(5)
+    end
+  end
+  describe "eat" do
+    context "when the dog is hungry" do
+      it "decrements the hunger level when invoked" do
+        dog.eat
+        expect(dog.hunger_level).to eq(4)
       end
     end
-
+    context "when the dog is full" do
+      it "doesn't decrement the hunger level when invoked" do
+        dog.hunger_level = 0
+        dog.eat
+        expect(dog.hunger_level).to eq(0)
+      end
+    end
   end
 end
-
 ```
-What changed?  We've identified that "dog" is the "subject under test", converting the instance variable (@dog) into the "subject" helper.  This method takes a name (:dog) and block of code that returns the subject (a new Dog with a name of Rover and hunger level of 10).  It provides a method, named "dog", that we now use throughout our spec.  
 
-This is a way of ensuring the subject is available in every test, just like `before:each` and `before:all`. What's the difference? `subject` is semantic.
-
-Interestingly, we could also replace each use of "dog" with "subject".
-
-### `let`
-
-RSpec also provides a "let" helper, which works the same way.  You can use it to identify other important components of the specification.
-
-`let` is "lazy-evaluated", only evaluated when directly called upon and value is cached the first time
-
-You can have `subject`, `let`, and `before:each` right next to each other.
+>Note: you can pass different options to before.
+>
+>**before(:each)** is a block of code that runs every time *before each* test is execute.
+>
+>**before(:all)** is the same concept, except it only runs **once**, *before all* the tests inside it have started.
 
 ## Garnet Example
 
