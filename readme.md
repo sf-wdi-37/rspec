@@ -1,12 +1,23 @@
+![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png)
+
 # Testing with RSpec
 
-## Learning Objectives
-- Explain the purpose and benefits of Unit testing
-- Describe TDD and it's importance
-- Explain RSpec is
-- Compare and contrast `expectations` and `matchers`
+### Why is this important?
+
+Test Driven Development leads to better code. TDD is extremely helpful when implimenting software according to predefined specifications and expectations. Previously, we've run tests and passed them; now, we'll see how to write them.
+
+### What are the objectives?
+*After this workshop, developers will be able to:*
+
+- Write unit tests using RSpec using `expectations` and `matchers`
 - Compare and contrast common RSpec terms including `"describe"`, `"it"`, `"context"`, `before(:each)`, `before(:all)`, `"subject"`,  `"let"`
 - Write and pass unit tests using RSpec
+
+### Where should we be now?
+*Before this workshop, developers should already be able to:*
+
+- Program in Ruby
+- Pass tests in a TDD manner
 
 ## Do You Test?
 
@@ -60,7 +71,7 @@ We've asked you to write user stories. Writing unit tests is a very similar proc
 
 When we think of "testing" we tend to think of something you do *after* you've created something. With unit tests, you're encouraged to write the tests *first* before you even start writing actual code.
 
-## TDD Overview
+## TDD Review
 
 ![TDD Example](http://joshldavis.com/img/tdd-vs-bdd/tdd-flowchart.png)
 
@@ -86,21 +97,20 @@ When we think of "testing" we tend to think of something you do *after* you've c
 
 RSpec makes it easier to write tests. Essentially it's a Domain Specific Language for writing live specifications about your code.  It was released on May 18, 2007, so it's been around for a while.
 
-> DSL: "Domain Specific Language" that is created specifically to solve problems in a particular domain and is not intended to be able to solve problems outside of it.
-
----
+> A DSL, "Domain Specific Language", is created specifically to solve problems in a particular domain and is not intended to be able to solve problems outside of it. Other DSLs include HTML or SQL. This is opposed to domain independent languages like Java, C++, Ruby, Python, PHP, JavaScript, Clojure, Rust, Scala, Erlang etc that are Turing complete (can solve any possible computation problem).
 
 ## RSpec Example
 
 Code is available here: [example-tests](./example-tests)
 
-When I run `rspec` in the `example-tests` directory, what do we see?
+When `rspec` is run in the `example-tests` directory, what does it show?
 
 ```
 Finished in 0.00565 seconds (files took 0.14281 seconds to load)
 5 examples, 0 failures
 ```
 Let's review `spec/person_spec.rb`.  This is the specification for a Person.  It indicates how we can expect a Person to function.
+
 ```
 rspec_person_example/
 ├── models
@@ -114,9 +124,9 @@ rspec_person_example/
 
 We have a Person model and a Person spec (a specification or test). This is the typical RSpec convention.  Specs live under the spec directory and echo the models in our system with the `_spec` suffix.
 
-Let's look further into ```person_spec.rb```
+Let's look further into `person_spec.rb`
 
-``` ruby
+```ruby
 # This first line is a reference to our library code.  We need to access to the classes we have written in Ruby to write our tests!
 
 require_relative '../models/person'  # a reference to our code
@@ -162,7 +172,7 @@ describe Person do
   end
 end
 ```
->What does `expect(@matt).to be_an_instance_of(Person)` mean in regular English?**
+>What does `expect(@matt).to be_an_instance_of(Person)` mean in regular English?
 
 ## Creating a Unit Test using RSpec
 
@@ -675,8 +685,6 @@ Constraints: Try to write everything as `describe`, `context`, and `it` blocks. 
 </details>
 
 ### Additional Resources
-- [Learn Ruby via RSpec](https://github.com/ga-dc/learn_ruby_via_rspec)
+- [Better Specs](http://betterspecs.org/)
 - [Code School RSpec](https://www.codeschool.com/courses/testing-with-rspec)
-- [RSpec for Newbies](http://code.tutsplus.com/tutorials/ruby-for-newbies-testing-with-rspec--net-21297)
-- [Mocks](https://github.com/rspec/rspec-mocks)
 - [RSpec Cheatsheets](https://www.anchor.com.au/wp-content/uploads/rspec_cheatsheet_attributed.pdf)

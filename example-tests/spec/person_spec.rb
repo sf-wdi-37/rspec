@@ -1,3 +1,5 @@
+require_relative '../models/person'  # includes the person model in our tests
+
 describe Person do
   describe "Constructor" do
     before(:each) do
