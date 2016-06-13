@@ -252,8 +252,6 @@ end
 
 Now we can start writing out some specifications related to the `new` method using and `it` block
 
-**/spec/dog_spec.rb**
-
 ```ruby 
 describe Dog do
   describe "::new" do
@@ -265,8 +263,6 @@ end
 What is is the output now? We should get `1 example, 0 failures, 1 pending`, saying that our specification is not yet implimented.
 
 Now add `do` at the end of the first `it` line.
-
-**/spec/dog_spec.rb**
 
 ```ruby 
 describe Dog do
@@ -306,14 +302,57 @@ We use the pattern `expect(IUT)` to "wrap" the ***Item Under Test***, so that it
 ##More expectations!
 
 
-##....
+###Naming your Dog
 
+Let's give our dog instances the method to get and set an attribute `name`. Obviously let's first start with the specfication.
 
+```ruby
+describe Dog do
+  #...
+  describe "#name" do
+    it "allows the reading and writing of a name" do
+      dog = Dog.new
+      dog.name = "Fido"
+      expect(dog.name).to eq("Fido")
+    end
+  end
+end
 ```
 
-**Instructions:**
+>What is the minimal code one could write to pass these specifications?
 
-1. Write a Spec that confirms the following: "has a hunger level thats an Integer"
+### Challenge: Feed your Dog
+
+Add an expectation to the dog that, "allows the reading and writing of a hunger level". When complete, ensure the tests are writing correctly by watching them fail. Finally implement the code that passes the new expectation.
+
+<details><summary>Example solution</summary>
+
+**/spec/dog_spec.rb**
+
+```ruby
+describe Dog do
+  #...
+  describe "#name" do
+    it "allows the reading and writing of a hunger level" do
+      dog = Dog.new
+      dog.hunger_level = 5
+      expect(dog.hunger_level).to eq(5)
+    end
+  end
+end
+```
+
+**/models/dog.rb**
+
+```ruby
+class Dog
+  #...
+  attr_accessor :hunger_level
+
+end
+```
+
+</details>
 
 ## Adding Additional Tests Using Context
 
