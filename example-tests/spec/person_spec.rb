@@ -1,21 +1,19 @@
-require_relative '../models/person'  # includes the person model in our tests
+require_relative '../models/person'  # a reference to our code
 
 describe Person do
   describe "Constructor" do
-    before(:each) do
-      @matt = Person.new("Matt")
-    end
+    subject(:matt) { Person.new("Matt") }
 
     it "should create a new instance of class Person" do
-      expect(@matt).to be_an_instance_of(Person)
+      expect(matt).to be_an_instance_of(Person)
     end
 
     it "should have a name" do
-      expect(@matt.name).to_not be_nil
+      expect(matt.name).to_not be_nil
     end
 
     it "should default #language to 'English'" do
-      expect(@matt.language).to eq("English")
+      expect(matt.language).to eq("English")
     end
   end
 
@@ -32,7 +30,10 @@ describe Person do
       subject(:tony) { Person.new("Tony", "Italian") }
 
       it "should offer a greeting in Italian" do
-        expect(tony.greeting).to eql("Ciao, mi chiamo Tony.")
+        # legacy syntax - the old DSL
+        tony.greeting.should eql("Ciao, mi chiamo Tony.")
+        # equivalent to:
+        # expect(tony.greeting).to eql("Ciao, mi chiamo Tony.")
       end
     end
   end

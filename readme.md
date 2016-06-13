@@ -10,8 +10,8 @@ Test Driven Development leads to better code. TDD is extremely helpful when impl
 *After this workshop, developers will be able to:*
 
 - Write unit tests using RSpec using `expectations` and `matchers`
-- Compare and contrast common RSpec terms including `"describe"`, `"it"`, `"context"`, `before(:each)`, `before(:all)`, `"subject"`,  `"let"`
-- Write and pass unit tests using RSpec
+- Compare and contrast common RSpec terms including `describe`, `it`, and `context`
+- Refactor tests with `before`, `subject`, and `let`
 
 ### Where should we be now?
 *Before this workshop, developers should already be able to:*
@@ -20,8 +20,6 @@ Test Driven Development leads to better code. TDD is extremely helpful when impl
 - Pass tests in a TDD manner
 
 ## Do You Test?
-
-We first encountered Test Driven Development during Unit 2, when we ran & passed unit tests in Ruby using RSpec.
 
 ####Place yourselves somewhere in the following ranges:
 
@@ -51,11 +49,11 @@ We first encountered Test Driven Development during Unit 2, when we ran & passed
 
 ## Unit vs Acceptance Tests
 
-**Unit tests** check the smallest level; the functionality of a specific method.
+**Unit tests** check the smallest level; the functionality of a specific method (what we'll be discussing mostly today).
 
-**Acceptance tests** verify our apps at the level of user interaction; testing for things when users take an action like visiting a page, clicking a links, loggin in, etc.  
+**Acceptance tests** verify our apps at the level of user interaction; testing for things when users take an action like visiting a page, clicking a links, loggin in, etc.
 
-  * The "units" in unit tests are individual methods. Unit tests are intended to test small, little blocks of code, and make sure a specific input results in a specific output.
+  * A unit test focuses on an individual methods. Unit tests are intended to test modular blocks of code to ensure a specific input results in a specific output.
 
   * Acceptance tests have a much wider focus. You'd use acceptance testing to make sure a sign-in form works, or that a user who doesn't have admin privileges can see this page, while a user who does have admin privileges can see that page.
 
@@ -133,20 +131,18 @@ require_relative '../models/person'  # a reference to our code
 
 describe Person do
   describe "Constructor" do
-    before(:each) do
-      @matt = Person.new("Matt")
-    end
+    subject(:matt) { Person.new("Matt") }
 
     it "should create a new instance of class Person" do
-      expect(@matt).to be_an_instance_of(Person)
+      expect(matt).to be_an_instance_of(Person)
     end
 
     it "should have a name" do
-      expect(@matt.name).to_not be_nil
+      expect(matt.name).to_not be_nil
     end
 
     it "should default #language to 'English'" do
-      expect(@matt.language).to eq("English")
+      expect(matt.language).to eq("English")
     end
   end
 
@@ -172,7 +168,8 @@ describe Person do
   end
 end
 ```
->What does `expect(@matt).to be_an_instance_of(Person)` mean in regular English?
+
+>What does `expect(matt).to be_an_instance_of(Person)` mean in regular English?
 
 ## Creating a Unit Test using RSpec
 
@@ -453,8 +450,8 @@ Do you see any opportunities to refactor? Identify them...
 describe Dog do
   describe "::new" do
     it "initializes a new dog" do
-      rover = Dog.new
-      expect(rover).to be_a(Dog)
+      dog = Dog.new
+      expect(dog).to be_a(Dog)
     end
   end
   describe "#name" do
@@ -590,43 +587,9 @@ end
 >
 >**before(:all)** is the same concept, except it only runs **once**, *before all* the tests inside it have started.
 
-## Garnet Example
-
-RSpec is used to test Garnet, the attendance/homework tracking app. Before any changes get pushed up to our live server, they have to pass all the tests -- an automated system rejects the changes if they don't pass.
-
-[Here's what that looks like. Seem familiar?](https://travis-ci.org/ga-dc/garnet/builds/89503768#L241) Clearly there are a lot of tests that are just pending and don't do anything yet -- almost 60!
-
-## Challenge: Let's Go Shopping
-
-**Instructions:**
-
- * Fork and Clone the following repo:
-[rspec-shopping-exercise](https://github.com/ga-wdi-exercises/rspec-shopping-exercise/tree/master)
-
-  > Don't forget to run bundle install!
-
- * Take a look at the `product.rb model`. Write unit tests in `product_spec.rb` to to test the methods it contains
-
- * You might need to refer to the RSpec documentation linked below for additional matchers to use when writing your tests
-
-  [RSpec documentation Built in Matchers](https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers).  Make sure you are on the version that corresponds to your installed library (v3.3).
-
-## The Flow
-
-Most testing frameworks, including RSpec, follow this flow:
-
-  - Setup
-  - Run
-  - Teardown
-
-Think `Red/Green/Refactor`
-
-* Each spec should run in isolation.  
-
-
 ## Challenge: Cereal Robot Exercise
 
-[Watch this video.](https://www.youtube.com/watch?v=E2evC2xTNWg)
+[Watch this video](https://www.youtube.com/watch?v=E2evC2xTNWg).
 
 Split up into groups of 4. For 15 minutes, on a whiteboard, work with your group to draft the unit tests for this cereal-delivering robot.
 
@@ -634,26 +597,24 @@ Goal: When all the tests pass, that means the robot works. However, you're only 
 
 Constraints: Try to write everything as `describe`, `context`, and `it` blocks. Method names should start with `#`.
 
+## Garnet Example
+
+RSpec is used to test Garnet, the attendance/homework tracking app. Before any changes get pushed up to our live server, they have to pass all the tests -- an automated system rejects the changes if they don't pass.
+
+Here's what the [model tests](https://github.com/ga-dc/garnet/tree/master/spec/models) look like. Checkout a few of them... Seem familiar?
+
+## Challenge: Grand Prix Racing
+
+ * Clone down [grand-prix-testing](https://github.com/sf-wdi-29/car-racing-lab) and follow the instructions.
+
 ## Closing
 
 ### Quiz Questions:
 
 - What is the purpose Unit testing?
-- How does Unit testing compare to Functional testing?
 - Explain what role RSpec plays in testing.
-- Describe TDD Cycle/Mantra
-- Explain what is RSpec's basic syntax. Specially how does `describe` and `context` differ?
-
-<details><summary>Sample answers</summary>
-
-1. Design/architecture/maintainability/fewer bugs.
-2. Unit tests are intended to test small, little blocks of code, and make sure a specific input results in a specific output. They are useful for us as developers. Functional tests verify our apps at the level of user interaction.  They visit web pages, click on links, validate the DOM.  
-3. RSpec is a testing framework for the Ruby, makes writing tests much more simple for us as developers! We can use Rspec to write unit tests.
-4. Red, Green, Refactor.  We write a test that fails, indicating that the feature is not supported.  Then, we adjust code until it passes (turns Green).  Lastly, we refactor our app using the knowledge we gained from supporting the spec.
-5. "Describe" and "Context" FUNCTIONALLY do the same thing (context is an alias of describe) The difference is the intent they express.
-"```describe```" indicates what I'm testing, typically a class or the name of a method while " ```context```" indicates a specific set of circumstances that effect the test (think WHEN!).
-
-</details>
+- What is `subject` useful for?
+- How does `describe` and `context` differ?
 
 ### Additional Resources
 - [Structure of RSpec Tests](http://jakegoulding.com/presentations/rspec-structure/)
