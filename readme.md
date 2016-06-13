@@ -180,7 +180,7 @@ We are going to be creating something similar to the above example. Instead we w
 
 ### Set-up
 
-Make a new directory `dog-app`, `cd` into it and `touch` a `Gemfile`.
+Make a new directory `dog`, `cd` into it and `touch` a `Gemfile`.
 
 #### Install RSpec
 
@@ -189,7 +189,7 @@ The first thing we'll do is install a gem called RSpec. To do this, just add `ge
 ```rb
 source "https://rubygems.org"
 
-gem "rspec"
+gem 'rspec'
 ```
 
 Then, in your Terminal:
@@ -213,219 +213,103 @@ Inside the `spec` directory and add a file called `dog_spec.rb`. Additionally, c
 
 >Note: Within `.rspec` file add `--color` OR in `spec/spec_helper.rb` add `config.color = true` to see colorful tests!
 
-#TODO: WRITE SPECS THEN TESTS THEN CODE.
-
 ### Writing our Specification
 
 Let's start defining the design of our program with certain specifications. Let's spec out our `Dog` with some psuedocode.
 
-```
-Dog
-
-::class_method
-    ...
-
-#instance_method
-    ...
-```
-
-### Writing our first tests
-
-Now, in our `models/dog.rb` file let's add the following code:
+**/spec/dog_spec.rb**
 
 ```rb
-class Dog
-  attr_accessor :name
-  attr_reader :hunger_level
+require_relative "../models/dog"
+describe Dog do
 
-  def initialize(initial_name, initial_hunger_level)
-    @name = initial_name
-    @hunger_level = initial_hunger_level
+end
+```
+
+We will specing-out or `describe` our `Dog`. A `describe` block is commonly used to split up a set of tests into sections about a certain set of tests will be focused on.
+
+Now let's run `rspec`. What happened? Does the file it's require exist?
+
+Make the file and run the tests again. What happens this time? Does the constant `Dog` exist? Let's give it just enough code to satisfy the current (minimal) specifications.
+
+**/models/dog.rb**
+
+```ruby
+Dog = Object.new
+```
+
+Realistically we'll want our `Dog` constant to be class that creates new dogs. So let's start specing it out. We'll first want to start describing it's `.new` method. Remember, in Ruby documentation it is convention to prefix class methods with `::` and instance methods with `#`.
+
+**/spec/dog_spec.rb**
+
+```ruby 
+describe Dog do
+  describe "::new" do
+    # specs to come
   end
+end
+```
 
-  def set_hunger_level (new_hunger_level)
-    if new_hunger_level < 0
-      @hunger_level = 0
-    else
-      @hunger_level = new_hunger_level
+Now we can start writing out some specifications related to the `new` method using and `it` block
+
+**/spec/dog_spec.rb**
+
+```ruby 
+describe Dog do
+  describe "::new" do
+    it "initializes a new dog"
+  end
+end
+```
+
+What is is the output now? We should get `1 example, 0 failures, 1 pending`, saying that our specification is not yet implimented.
+
+Now add `do` at the end of the first `it` line.
+
+**/spec/dog_spec.rb**
+
+```ruby 
+describe Dog do
+  describe "::new" do
+    it "initializes a new dog" do
+      #specs to come...
     end
   end
-
-end
-```
-Now, let's start writing our tests! At the top of the `spec_helper.rb` file add `require_relative "../models/dog"`
-
-To make sure everything's set up properly, run `rspec` again. You should still get "No examples found." If you get anything else, something was set up incorrectly.
-
-We're writing tests that describe the Dog class. So, after all your `require` lines, write:
-
-```rb
-describe Dog do
-
 end
 ```
 
-...and remember, every `do` needs an `end`. Add it.
+>Run `rspec` again. Our tests passed because RSpec will evaluate a test as passing as long as no errors are thrown.
 
-We're going to write a simple test just to make sure a new Dog has the class of Dog... which, of course, it will, but that's OK!
+Let's make our specs actually test something.
 
-```rb
+```ruby 
 describe Dog do
-  it "has the class Dog"
-end
-```
-Save the file, and run `rspec` again.
-
-Now you should get a message in your Terminal like:
-
-```plain
-$ rspec
-*
-
-Pending: (Failures listed here are expected and do not affect your suite's status)
-
-  1) Dog has the class Dog
-     # Not yet implemented
-     # ./spec/dog_spec.rb:5
-
-
-Finished in 0.00033 seconds (files took 0.07384 seconds to load)
-1 example, 0 failures, 1 pending
-```
-
-Wow! That's different! This is a list of all the tests we've written. Right now, that's a grand total of one.
-
-There are a couple things to point out here.
-
-- "Not yet implemented"
-  - That means that this test doesn't actually test anything yet. Clearly it doesn't -- we just wrote some English, we didn't write any actual code.
-- The file and line number
-  - This shows the line on which that particular test is found.
-- `1 example... 1 pending`
-  - "Pending" is another way of saying "not yet implemented", and "example" is another way of saying "test".
-
-Let's add another pending test:
-
-```rb
-describe Dog do
-  it "has the class Dog"
-  it "has a String for a Name"
-end
-```
->Run `rspec` again. Anything crazy going on?**
-
----
-You might have noticed when we ran `rspec` before that there was a little asterisk `*` at the top of the message, and now there are two `**`. This indicates two pending tests.
-
-### It...do
-
-Now add `do` at the end of the first `it` line. Remember, each `do` needs an `end`!
-
-```rb
-describe Dog do
-  it "has the class Dog" do
-
-  end
-  it "has a String for an Name" do
-
+  describe "::new" do
+    it "initializes a new dog" do
+      rover = Dog.new
+      expect(rover).to be_a(Dog)
+    end
   end
 end
 ```
 
->Run `rspec` again. What's different?**
-
----
-
-```
-..
-
-Finished in 0.0005 seconds (files took 0.07273 seconds to load)
-2 examples, 0 failures
-
-```
-
-Adding `do...end` makes RSpec think this test is an actual test -- not pending anymore. There's no malfunctioning code inside this test, so RSpec is saying it passes. Asterisk `*` indicates a pending test, and dot `.` indicates a passing test.
-
-## Passing Our First Test
-
-Let's make these tests actually test something. Inside the first test, make (but don't save) a new Dog and save it to a variable.
-
-```rb
-it "has the class Dog" do
-  dog = Dog.new("Rover", 10)
-end
-```
-
-Now, let's tell the test that we expect that new dog to be a dog:
-
-```rb
-it "has the class Dog" do
-  dog = Dog.new("Rover", 10)
-  expect(dog).to be_a(Dog)
-end
-```
-
-Run `rspec`. The test should still pass.
-
->Read that new line to yourself. We literally wrote "expect dog to be a dog". This is totally proper English but it's code! The methods that come built-in with RSpec were created in such a way that tests look as English-y as possible.
-
-This is our first first spec or "expectation"
-
-RSpec assertions have two components: `expectation` and `matcher`.
-
-1. We expect `dog` to be something.
-
-2. We identify that "something" with a Matcher:
-
-> Expectation: `expect(dog).to `
+> Expectation: `expect(dog).to` 
 
 > Matcher: `be_a(Dog)`
 
->We use `expect(IUT)` to "wrap" the ***Item Under Test***, so that it supports the `to` method which accepts a matcher. Here we are wrapping an object or block in expect, call to or to_not (aliased as not_to) and pass it a matcher object
+We use the pattern `expect(IUT)` to "wrap" the ***Item Under Test***, so that it supports the `to` method which accepts a matcher. Here we are wrapping an object or block in expect, call to or to_not (aliased as not_to) and pass it a matcher object
 
 [RSpec documentation Built in Matchers](https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers)
 
-Now let's make the test **fail**. Let's say we "expect dog to be a Integer":
+>What is the minimal amount of code we can write in `models/dog.rb` to pass our current expectation?
 
-```rb
-it "has the class Dog" do
-  dog = Dog.new("Rover", 10)
-  expect(dog).to be_a(Integer)
-end
-```
+##More expectations!
 
-Run `rspec` and... You got an F! See how it says `F.` with a dot after it? That indicates you have one failing test, and one passing test.
 
-Whenever a test fails, RSpec will put an error message after that test which should give you an idea of why it failed. This message is a little complicated, so let's create a simpler one.
+##....
 
-Change the line to:
-
-```rb
-expect(dog.class.to_s).to eq("Integer")
-```
-
-Now we're saying, "the name of the dog's class should equal 'Integer'".
-
-Run `rspec`. This new message is easier to read:
 
 ```
-expected: "Integer"
-  got: "Dog"
-```
-
-Before moving on, let's change the first test so it passes again!
-
-## Challenge: Make the second test pass
-
-**Instructions:**
-
-1. Spend 5 minutes writing code to make our second test pass!
-
-2. Then we will review the solution together
-
-[Link to see solution code](https://github.com/ga-wdi-lessons/rspec/blob/master/solution.md)
-
-## Challenge: Create a new Spec
 
 **Instructions:**
 
