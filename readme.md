@@ -282,8 +282,8 @@ Let's make our specs actually test something.
 describe Dog do
   describe "::new" do
     it "initializes a new dog" do
-      rover = Dog.new
-      expect(rover).to be_a(Dog)
+      dog = Dog.new
+      expect(dog).to be_a(Dog)
     end
   end
 end
@@ -321,7 +321,7 @@ end
 
 >What is the minimal code one could write to pass these specifications?
 
-### Challenge: Feed your Dog
+### Challenge: Hungry Dog
 
 Add an expectation to the dog that, "allows the reading and writing of a hunger level". When complete, ensure the tests are writing correctly by watching them fail. Finally implement the code that passes the new expectation.
 
@@ -354,93 +354,151 @@ end
 
 </details>
 
-## Adding Additional Tests Using Context
+###Feeding the Dog
 
-Now, let's write a test for our method `set_hunger_level` that will be changing our dog's hunger level. Add in the following:
+Let's impliment a method `eat` which decrements a dog's hunger level when invoked. How would we translate this specification in RSpec tests?
 
-```rb
-describe "#set_hunger_level" do
-  context "when new hunger level" do
-    context "is less than 0" do
-      it "set the hunger level to 0"
-    end
-    context "is greater than 0" do
-      it "set our hunger level to the new hunger level"
+**/spec/dog_spec.rb**
+
+```ruby
+describe Dog do
+  #...
+  describe "eat" do
+    it "decrements the hunger level when invoked" do
+      dog = Dog.new
+      dog.hunger_level = 5
+      dog.eat
+      expect(dog.hunger_level).to eq(4)
     end
   end
 end
 ```
-Let's go through it a bit at a time:
 
-You can **nest** as many `describe` blocks as you want. What's the purpose? Just to lump together some tests. **It doesn't affect the code at all.** It's purely to keep things organized visually.
+###Challenge: Teach the Dog to Eat
 
-Also, **`context` does literally the exact same thing as `describe`**. They're identical. RSpec makes no difference between them. So why have both? To make your tests more readable from an English standpoint. You can see here I'm using `describe` for when I'm talking about specific objects or methods, and `context` when I'm talking about, well, different contexts. If I replace `describe` with `context`, and vice-versa, the tests will run the exact same way.
+Write the code that passes the above specifications.
 
-The hash `#` in front of `set_hunger_level` also doesn't do anything -- it's just what programmers usually use to indicate that something is a method, in the same way they use `$` to indicate a command you should enter in the terminal.
+<details><summary>Example solution</summary>
 
-`describe` and `context` are not tests; they just help organize them. Only `it` is a test.
+**/models/dog.rb**
 
-`it` also is **childless**. `it` cannot have any `describe`, `context`, or `it` blocks inside it.
+```ruby
+class Dog
+  #...
+  def eat
+    self.hunger_level -= 1
+  end
+end
+```
 
- <!-- RSpec is all about making tests easy to read from an English standpoint. -->
+</details>
 
-## Making the `#set_hunger_level` tests pass
+###Context
 
-**Instructions:**
+Image we want the eat method to behave differently in different contexts. For example if the dog is not hungry and has a `hunger_level` of `0`, we don't want the eat method to continue decrementing. In order to setup different scenarios or contexts in our specifications, we can use the `context` keyword. Generally, context blocks are a *"nice to have"* in testing and improve **organization** and **readability**.
 
-Given what we have done in class so far, spend the next 10 minutes getting our `'#set_hunger_level'` tests to pass!
+Use `describe` for "things" and `context` for "states.
 
-## DRYing it up
 
-**Which lines on here repeat?**
-```rb
+**/spec/dog_spec.rb**
+
+```ruby
 describe Dog do
-  it "has the class Dog" do
-    dog = Dog.new("Rover", 10)
-    expect(dog).to be_a(Dog)
-  end
-  it "has a String for an Name" do
-    dog = Dog.new("Rover", 10)
-    expect(dog.name).to be_a(String)
-  end
-  it "has an initial hunger level thats an Integer" do
-    dog = Dog.new("Rover", 10)
-    expect(dog.hunger_level).to be_a(Integer)
-  end
-  describe "#set_hunger_level" do
-    context "when new hunger level" do
-      context "is less than 0" do
-        it "sets the hunger level to 0" do
-          @dog = Dog.new("Rover", 10)
-          @dog.set_hunger_level(-1)
-          expect(@dog.hunger_level).to eq(0)
-        end
+  #...
+  describe "eat" do
+    context "when the dog is hungry" do
+      it "decrements the hunger level when invoked" do
+        dog = Dog.new
+        dog.hunger_level = 5
+        dog.eat
+        expect(dog.hunger_level).to eq(4)
       end
-      context "is greater than 0" do
-        it "sets our hunger level to the new hunger level" do
-          @dog = Dog.new("Rover", 10)
-          @dog.set_hunger_level(2)
-          expect(@dog.hunger_level).to eq(2)
-        end
+    end
+    context "when the dog is full" do
+      it "doesn't decrement the hunger level when invoked" do
+        dog = Dog.new
+        dog.hunger_level = 0
+        dog.eat
+        expect(dog.hunger_level).to eq(0)
       end
     end
   end
 end
 ```
 
-Usually, you're going to have a whole bunch of tests that all do very similar things. Writing `dog = Dog.new("Rover", 10)` a bunch of times would get tiresome.
+###Challenge: Don't Over Eat
 
-Swap out your code with this:
+Write the code to pass the above specs!
 
-```rb
-require "rspec"
-require_relative '../models/dog'
+<details><summary>Example solution</summary>
 
-describe Dog do
-  before(:each) do
-    @dog = Dog.new("Rover", 10)
+**/models/dog.rb**
+
+```ruby
+class Dog
+  #...
+  def eat
+    self.hunger_level -= 1 if hunger_level > 0
   end
+end
+```
 
+</details>
+
+##Refactoring with `before` blocks
+
+Do you see any opportunities to refactor? Identify them...
+
+```ruby
+describe Dog do
+  describe "::new" do
+    it "initializes a new dog" do
+      rover = Dog.new
+      expect(rover).to be_a(Dog)
+    end
+  end
+  describe "#name" do
+    it "allows the reading and writing of a name" do
+      dog = Dog.new
+      dog.name = "Fido"
+      expect(dog.name).to eq("Fido")
+    end
+  end
+  describe "#name" do
+    it "allows the reading and writing of a hunger level" do
+      dog = Dog.new
+      dog.hunger_level = 5
+      expect(dog.hunger_level).to eq(5)
+    end
+  end
+  describe "eat" do
+    context "when the dog is hungry" do
+      it "decrements the hunger level when invoked" do
+        dog = Dog.new
+        dog.hunger_level = 5
+        dog.eat
+        expect(dog.hunger_level).to eq(4)
+      end
+    end
+    context "when the dog is full" do
+      it "doesn't decrement the hunger level when invoked" do
+        dog = Dog.new
+        dog.hunger_level = 0
+        dog.eat
+        expect(dog.hunger_level).to eq(0)
+      end
+    end
+  end
+end
+```
+
+How many times are we writing `dog = Dog.new`? It seems we'll have to do that at the beginning of most specifications.
+
+We could use `before`, `let`, or `subject` to help us refactor these specifications. Let's prefer using `subject` as the dog is the subject, or thing we are testing. `let` is similar, but may be used when one wants to set up a variable that isn't necessarily the subject, for example it could be the food the dog is eating. Whereas `let` and `subject` are used to setup "dependencies", `before` which is best used to setup an action in advance, such as opening a connection with a database.
+
+```ruby
+describe Dog do
+  
   describe "attributes of a dog" do
     it "has the class Dog" do
       expect(@dog).to be_a(Dog)
@@ -471,14 +529,9 @@ describe Dog do
 
   end
 end
-
-
 ```
-What changed? We moved the `Dog.new("Rover", 10)`, into a `before:each` block.  Since the local variable is not available across methods, we converted `dog` to an instance variable (with `@`).
 
-Run `rspec`. It should still work.
-
->What if we change the `:each` to `:all`? What's difference?
+##BEFORE & CONTEXT SET HUNGER LEVEL
 
 **before:each** is a block of code that runs *before each* test inside it. Try adding a `puts "*" * 50` inside `before:each`, then running `rspec`. You should see two lines of asterisks pop up.
 
@@ -608,6 +661,7 @@ Constraints: Try to write everything as `describe`, `context`, and `it` blocks. 
 </details>
 
 ### Additional Resources
+- [Structure of RSpec Tests](http://jakegoulding.com/presentations/rspec-structure/)
 - [Better Specs](http://betterspecs.org/)
 - [Code School RSpec](https://www.codeschool.com/courses/testing-with-rspec)
 - [RSpec Cheatsheets](https://www.anchor.com.au/wp-content/uploads/rspec_cheatsheet_attributed.pdf)
