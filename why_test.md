@@ -14,11 +14,11 @@
 
 As our applications increase in complexity, we need a saftey net.  We need something to ensure that we "Do no harm".  We need a battery of automated tests.  These are specifications about YOUR code that you can run to ensure your code is doing what it should.  
 
-Think back to the way you code.  You create a part of a web page, then you browse to that page to test it.  To ensure that it is doing as you expect.  Then you add another feature.  And test both features.  Then you add a third feature and test... just the third feature.  Imagine if you had a battery of automated specs, which run against your code, so you can see if your new changes fit your new requirements and EVERY requirement that came before this.
+Think back to the way you code.  You create a part of a web page, then you browse to that page to test it to ensure that it is doing as you expect.  Then you add another feature.  And test both features.  Then you add a third feature and test... just the third feature.  Imagine if you had a battery of automated specs, which run against your code, so you can see if your new changes fit your new requirements and EVERY requirement that came before this.
 
-There a few levels of testing. Acceptance tests verify our apps at the lvel of user interaction.  They visit web pages, click on links, validate the DOM.  Integration tests check the interaction between objects.  Unit tests check the smallest level.  The functionality of a specific method.
+There a few levels of testing. Acceptance tests verify our apps at the level of user interaction.  They visit web pages, click on links and validate the DOM.  Integration tests check the interaction between objects.  Unit tests check the smallest level, the functionality of a specific method.
 
-Sandi Metz (author of POODiR), has a talk titled "The Magic Tricks of Testing".  
+Sandi Metz (author of [POODR](http://www.poodr.com/), has a talk titled "The Magic Tricks of Testing".  
 
 She discuses that:
 - Unit tests stand in contrast to integration tests
@@ -32,7 +32,7 @@ She propounds that our Unit Tests should be:
 - Fast
 - Few
 
-They need to be thorough enough to identify an issue at the moment when it occurs.  They need to be stable so that we can trust them.  No [flickering tests](http://sk176h.blogspot.com/2013/05/flickering-scenario.html).  They need to be fast so that we can run all our tests every time we make a change - or we will stop running them.  They need to be few so...  They need to be few so that... awww, go watch the talk already.
+They need to be thorough enough to identify an issue at the moment when it occurs.  They need to be stable so that we can trust them.  No [flickering tests](http://sk176h.blogspot.com/2013/05/flickering-scenario.html).  They need to be fast so that we can run all our tests every time we make a change - or we will stop running them.  They need to be few so...  They need to be few so that... awww, [go watch the talk already](https://www.youtube.com/watch?v=URSWYvyc42M).
 
 
 ### What is RSpec?
@@ -140,7 +140,7 @@ end
 ### The Spec
 The first line is a reference to our library code.  We need to access to the classes we have written.
 
-Well skim through the code, gaining a high level knowledge of what is expected, then we'll return to hash out the details.
+We'll skim through the code, gaining a high level knowledge of what is expected, then we'll return to hash out the details.
 
 `describe` is a keyword provided by RSpec (part of its DSL).  Here it indicates that a `Person` is the "Unit Under Test".  First we show examples of what we can expect as we construct new people.  Then, we describe the functionality of the `greeting` method, specifically within the specific context of each language.  This is ruby code, indicating how our library (or model) code should behave.
 
@@ -291,7 +291,7 @@ when /spanish/i
 ### Think, pair, share.  What aren't we testing? (5m)
 Let's take a few minutes to think about what we aren't testing.
 
-Sit quietly for 1 minutes.  Think like a tester.  What code exists that aren't testing.  What examples would be good to clarify what our code can do?
+Sit quietly for 1 minute. Think like a developer. What code exists that we aren't testing?  What examples would be good to clarify what our code can do?
 
 Next, we'll discuss with our pair for 2 minutes.
 Then, we'll share a few examples with the class.
@@ -310,7 +310,7 @@ Then, we'll share a few examples with the class.
 
 ### Specify State or Side-effects
 
-Sandi breaks Unit tests in two groups: Queries and Commands.  So far, we've been specifying the expected return value of methods.  That covers the Queries.  We can also specify the expected side-effects.  A Command performs some action and we can assert that commands do what they are supposed to.  Does this method do what it should do to our system?
+Sandi Metz breaks Unit tests in two groups: Queries and Commands.  So far, we've been specifying the expected return value of methods.  That covers the Queries.  We can also specify the expected side-effects.  A Command performs some action and we can assert that commands do what they are supposed to.  Does this method do what it should do to our system?
 
 Think back to [oop_monkey](https://github.com/ga-dc/oop_monkey).  Remember that our app kept track of the foods that our monkey ate?
 
@@ -402,16 +402,16 @@ Add support for farewell, for each language.
 
 ## It depends (10m)
 
-All of these "rules"come with the caveat, "If it makes more sense to break the rules.  Break them."
+All of these "rules" come with the caveat, "If it makes more sense to break the rules, break them."
 
 For instance, if ItalianTranslator utilized a 3rd party, external service, I probably just want to check that I am calling it correctly.  And that's where mocks and stubs come in.
 
 ## Mocks & Stubs
-Sometimes our Unit Under Test must interact with other object.  If these objects are difficult to setup or their response may be slow or non-deterministic -- like an external service that we contact via te internet.  It can make sense to mock out the other object, to create a "fake" object that supports the interface you need but returns a fixed, expected value.  This makes your component examples independent of other components.
-- You can use mock objects the replace the entire object, just supporting the interface you need (the methods and attribute that your Unit Under Test actually interacts with).
+Sometimes our Unit Under Test must interact with other object.  If these objects are difficult to setup or their response may be slow or non-deterministic--like an external service that we contact via the internet--it can make sense to mock out the other object, to create a "fake" object that supports the interface you need but returns a fixed, expected value.  This makes your component examples independent of other components.
+- You can use mock objects to replace the entire object, just supporting the interface you need (the methods and attribute that your Unit Under Test actually interacts with).
 - You can stub specific methods on "real" objects to let them return whatever you like.
 
-Earlier, I passed in `TranslatorItalian` and I called the `convert_from` method on it.  If that was a service somewhere else on the web, then my unit tests probably do not wan tot call it.
+Earlier, I passed in `ItalianTranslator` and I called the `convert_from` method on it.  If that was a service somewhere else on the web, then my unit tests probably do not want to call it.
 ---
 
 ### Mock Example
@@ -443,9 +443,9 @@ So then when I use this *mock* in my tests, `tony` returns the phrase I expect a
 
 ### TATFT
 
-The ruby community drank the testing koolaid.  We've felt the benefits.  Rails was the first web framework that supported testing out of the box.  The generators create a skeleton test, encouraging you to get in there and fill it out.
+The ruby community drank the testing Koolade.  We've felt the benefits.  Rails was the first web framework that supported testing out of the box.  The generators create a skeleton test, encouraging you to get in there and fill it out.
 
-Every single person that comes in here to talk to you - from alumni to seasoned veteran - espouses the importance of testing.  It's a learning curve.  It will be slow... at first.  Stick with it.  Keep at it.  Climb that curve.  Impress your interviewers.
+Every single person that comes in here to talk to you, from alumni to seasoned veteran espouses the importance of testing.  It's a learning curve.  It will be slow... at first.  Stick with it.  Keep at it.  Climb that curve.  Impress your interviewers.
 
 ---
 
