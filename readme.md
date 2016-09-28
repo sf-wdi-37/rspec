@@ -173,13 +173,9 @@ end
 
 #### Think, pair, share: What aren't we testing? 
 
-Think about what we aren't testing.
+ Think like a developer. What code exists that we aren't testing? What examples would be good to clarify what our code can do?
 
-Sit quietly for 1 minute. Think like a developer. What code exists that we aren't testing? What examples would be good to clarify what our code can do?
-
-Next, we'll discuss with our pair for 2 minutes. Then, we'll share a few examples with the class.
-
-### 
+###  Test Structure
 
 Let's take a look at the structure of one test:
 
@@ -202,11 +198,11 @@ Take a few minutes to look through the RSpec documentation on [Built-in Matchers
 
 ## Creating a Unit Test with RSpec
 
-We are going to be creating something similar to the above example. Instead we will be writing a spec for creating a new ruby class of `Dog`
+We are going to be creating something similar to the above example. Instead of a `Person`,  we will be writing a spec for creating a new ruby class `Dog`.
 
 ### Set-up
 
-Make a new directory `dog`, `cd` into it and `touch` a `Gemfile`.
+Make a new directory `dog`, `cd` into it, and `touch` a `Gemfile`.
 
 #### Install RSpec
 
@@ -418,9 +414,11 @@ end
 
 ###Context
 
-Image we want the eat method to behave differently in different contexts. For example if the dog is not hungry and has a `hunger_level` of `0`, we don't want the eat method to continue decrementing. In order to setup different scenarios or contexts in our specifications, we can use the `context` keyword. Generally, context blocks are a *"nice to have"* in testing and improve **organization** and **readability**.
+Image we want the eat method to behave differently in different contexts. For example if the dog is not hungry and has a `hunger_level` of `0`, we don't want the eat method to continue decrementing.   This is an important **edge case** to consider!
 
-Use `describe` for "things" and `context` for "states.
+In order to setup different scenarios or contexts in our specifications, we can use the `context` keyword. Generally, context blocks are "nice to have" (not must-have) in testing and improve organization and readability.
+
+Use `describe` for items under tests and `context` for different states that the items or application could be in.
 
 
 **/spec/dog_spec.rb**
@@ -628,8 +626,9 @@ Constraints: Try to write everything as `describe`, `context`, and `it` blocks. 
 
 - What is the purpose Unit testing?
 - Explain what role RSpec plays in testing.
-- What is `subject` useful for?
-- How does `describe` and `context` differ?
+- Why should we test our code on the inputs that will be most common for our app?
+- Why should we test our code with edge cases?  
+- Why might we test error cases?
 
 ### Resources
 - RSpec docs on [the basic structure of a test](https://www.relishapp.com/rspec/rspec-core/v/3-5/docs/example-groups/basic-structure-describe-it)
