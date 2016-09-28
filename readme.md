@@ -9,9 +9,10 @@ Test Driven Development leads to better code. TDD is extremely helpful when impl
 ### What are the objectives?
 *After this workshop, developers will be able to:*
 
-- Write unit tests using RSpec using `expectations` and `matchers`
-- Compare and contrast common RSpec terms including `describe`, `it`, and `context`
-- Refactor tests with `before`, `subject`, and `let`
+- Justify writing unit tests.
+- Explain important testing concepts: edge cases and test coverage.
+- Read and explain Rspec tests.
+- Write DRY and effective test code using RSpec.
 
 ### Where should we be now?
 *Before this workshop, developers should already be able to:*
@@ -47,6 +48,12 @@ Test Driven Development leads to better code. TDD is extremely helpful when impl
 
 </details>
 -->
+
+### Why Test?
+
+As our applications increase in complexity, we need a saftey net. We need something to quickly ensure that we "do no harm" as we make changes. We need a battery of automated tests. These are specifications about YOUR code that you can run to ensure your code is doing what it should.
+
+Think back to the way you code. You probably create a part of a web page, then browse to that page to test it to ensure that it is doing as you expect. Then you add another feature. Then test both features. Then you add a third feature and test. Have you ever had the experience of accidentally breaking an earlier feature?  Imagine if you had a battery of automated specs which run against your code so you can see if your new changes fit your new requirements *and* every requirement that came before this.
 
 ## Types of Tests 
 
@@ -164,7 +171,36 @@ end
 
 >What does `expect(matt).to be_an_instance_of(Person)` mean in regular English?
 
-## Creating a Unit Test using RSpec
+#### Think, pair, share: What aren't we testing? 
+
+Think about what we aren't testing.
+
+Sit quietly for 1 minute. Think like a developer. What code exists that we aren't testing? What examples would be good to clarify what our code can do?
+
+Next, we'll discuss with our pair for 2 minutes. Then, we'll share a few examples with the class.
+
+### 
+
+Let's take a look at the structure of one test:
+
+```ruby 
+it "returns a greeting in English" do
+  expect(bob.greeting).to eq("Hello, my name is Bob.")
+end
+```
+
+We use `expect(IUT)` to "wrap" the actual value we receive from the *Item Under Test*. The `expect` method will run the code it takes in as an argument to get an actual value.   Then we chain on the `to` method. This `to` method takes in a matcher. 
+
+
+> Item Under Test: `bob.greeting`
+
+> Expectation: `expect(bob.greeting).to` 
+
+> Matcher: `eq("Hello, my name is Bob.")`   
+
+Take a few minutes to look through the RSpec documentation on [Built-in Matchers](https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers).  What are some matchers you think you will use?
+
+## Creating a Unit Test with RSpec
 
 We are going to be creating something similar to the above example. Instead we will be writing a spec for creating a new ruby class of `Dog`
 
@@ -281,11 +317,8 @@ end
 
 > Expectation: `expect(dog).to` 
 
-> Matcher: `be_a(Dog)`
+> Matcher: `be_a(Dog)`   
 
-We use the pattern `expect(IUT)` to "wrap" the ***Item Under Test***, so that it supports the `to` method which accepts a matcher. Here we are wrapping an object or block in expect, call to or to_not (aliased as not_to) and pass it a matcher object
-
-[RSpec documentation Built in Matchers](https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers)
 
 >What is the minimal amount of code we can write in `models/dog.rb` to pass our current expectation?
 
@@ -598,8 +631,10 @@ Constraints: Try to write everything as `describe`, `context`, and `it` blocks. 
 - What is `subject` useful for?
 - How does `describe` and `context` differ?
 
-### Additional Resources
-- [Structure of RSpec Tests](http://jakegoulding.com/presentations/rspec-structure/)
-- [Better Specs](http://betterspecs.org/)
-- [Code School RSpec](https://www.codeschool.com/courses/testing-with-rspec)
+### Resources
+- RSpec docs on [the basic structure of a test](https://www.relishapp.com/rspec/rspec-core/v/3-5/docs/example-groups/basic-structure-describe-it)
+- RSpec docs on [expectations](http://www.relishapp.com/rspec/rspec-expectations/docs)  
+- RSpec docs on [Built-in Matchers](https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers)
+- Talk by Sandi Metz on [The Magic Tricks of Testing](https://www.youtube.com/watch?v=URSWYvyc42M)
+- [Better Specs](http://betterspecs.org/) guidelines
 - [RSpec Cheatsheets](https://www.anchor.com.au/wp-content/uploads/rspec_cheatsheet_attributed.pdf)
