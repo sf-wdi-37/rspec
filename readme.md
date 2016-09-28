@@ -617,7 +617,7 @@ end
 
 Split up into groups of 4. For 15 minutes, on a whiteboard, work with your group to draft the unit tests for this cereal-delivering robot.
 
-Goal: When all the tests pass, that means the robot works. However, you're only writing **pending** tests -- don't actually write the code that would make the tests pass.
+Goal: Pseudocode tests so that when all the tests pass, we'll know the robot works. However, you're only writing **pending** tests -- don't actually write the code that would make the tests pass.
 
 Constraints: Try to write everything as `describe`, `context`, and `it` blocks. Method names should start with `#`.
 
