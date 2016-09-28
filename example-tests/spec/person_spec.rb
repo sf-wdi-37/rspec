@@ -4,24 +4,24 @@ describe Person do
   describe "Constructor" do
     subject(:matt) { Person.new("Matt") }
 
-    it "should create a new instance of class Person" do
+    it "creates a new instance of class Person" do
       expect(matt).to be_an_instance_of(Person)
     end
 
-    it "should have a name" do
+    it "gives instance a name" do
       expect(matt.name).to_not be_nil
     end
 
-    it "should default #language to 'English'" do
+    it "defaults language to 'English'" do
       expect(matt.language).to eq("English")
     end
   end
 
   describe "#greeting" do
-    context "for default language (English)" do
+    context "when language is English (default language)" do
       subject(:bob) { Person.new("Bob") }
 
-      it "should offer a greeting in English" do
+      it "returns a greeting in English" do
         expect(bob.greeting).to eql("Hello, my name is Bob.")
       end
     end
@@ -29,11 +29,11 @@ describe Person do
     context "when language is 'Italian'" do
       subject(:tony) { Person.new("Tony", "Italian") }
 
-      it "should offer a greeting in Italian" do
+      it "returns a greeting in Italian" do
         # legacy syntax - the old DSL
         tony.greeting.should eql("Ciao, mi chiamo Tony.")
         # equivalent to:
-        # expect(tony.greeting).to eql("Ciao, mi chiamo Tony.")
+        expect(tony.greeting).to eql("Ciao, mi chiamo Tony.")
       end
     end
   end
