@@ -27,7 +27,7 @@ Test Driven Development leads to better code. TDD is extremely helpful when impl
 
 * I love the idea of TDD **or** I hate the idea of TDD.
 
-####Thoughts:
+####Brainstorm:
 
 * For those of you who are negative to testing, why? What did you or would you do instead?
 * For those of you who are positive to testing, why? What problems did it solve?
@@ -48,21 +48,21 @@ Test Driven Development leads to better code. TDD is extremely helpful when impl
 </details>
 -->
 
-## Unit vs Acceptance Tests
+## Types of Tests 
 
-**Unit tests** check the smallest level; the functionality of a specific method (what we'll be discussing mostly today).
 
-**Acceptance tests** verify our apps at the level of user interaction; testing for things when users take an action like visiting a page, clicking a links, loggin in, etc.
+**Unit tests** check the smallest units of code. Unit tests are intended to test individual methods to ensure a specific input results in a specific output. These are the tests we'll focus on today. 
 
-  * A unit test focuses on an individual methods. Unit tests are intended to test modular blocks of code to ensure a specific input results in a specific output.
+**Integration Tests** combine components pr parts of an app together, sometimes just a few and other times the entire system.  They test the that components work together and that the interface between them is behaving as we expect.
 
-  * Acceptance tests have a much wider focus. You'd use acceptance testing to make sure a sign-in form works, or that a user who doesn't have admin privileges can see this page, while a user who does have admin privileges can see that page.
+**Acceptance tests** verify our apps at the level of user interaction. They test for behaviors that happen when users take an action like visiting a page, clicking a links, loggin in, etc.
 
-Unit testing always should come before acceptance testing.
 
-You'll see the term **test coverage** pop up pretty often. People are always aiming for "100% test coverage". If your app has 100% test coverage, that means every single method in your app has a unit test verifying that it works.
+### Test Process
 
->For instance, while it's easy and free to write Salesforce apps, Salesforce will only add your app to its "app store" if you've obtained 100% test coverage, and Salesforce's developer team can run your tests and have them all pass.
+You'll see the term **test coverage** pop up pretty often. People are always aiming for "100% test coverage". If your app has 100% test coverage, that means every single method in your app has one or more unit test verifying that it works.
+
+>For instance, it's easy and free to write Salesforce apps. However, Salesforce will only add your app to its "app store" if you've obtained 100% test coverage and all tests are passing.
 
 **What are the reasons testing is so important? Why would employers love it so much?**
 
@@ -92,11 +92,7 @@ When we think of "testing" we tend to think of something you do *after* you've c
 
 ## What is RSpec?
 
-**RSpec** is a testing framework for the Ruby programming language.
-
-RSpec makes it easier to write tests. Essentially it's a Domain Specific Language for writing live specifications about your code.  
-
-> A DSL, "Domain Specific Language", is created specifically to solve problems in a particular domain and is not intended to be able to solve problems outside of it. Other DSLs include HTML or SQL. This is opposed to domain independent languages like Java, C++, Ruby, Python, PHP, JavaScript, Clojure, Rust, Scala, Erlang etc that are Turing complete (can solve any possible computation problem).
+**RSpec** is a Ruby  gem that makes it easier to write tests. 
 
 ## RSpec Example
 
@@ -108,7 +104,7 @@ When `rspec` is run in the `example-tests` directory, what does it show?
 Finished in 0.00565 seconds (files took 0.14281 seconds to load)
 5 examples, 0 failures
 ```
-Let's review `spec/person_spec.rb`.  This is the specification for a Person.  It indicates how we can expect a Person to function.
+Let's review `spec/person_spec.rb`.  This is the specification for a `Person`.  It indicates how we can expect a Person to function.
 
 ```
 rspec_person_example/
@@ -315,7 +311,7 @@ end
 
 >What is the minimal code one could write to pass this test?
 
-### Challenge: Hungry Dog
+### Check for Understanding: Hungry Dog
 
 Add an expectation to the dog that, "allows the reading and writing of a hunger level". When complete, ensure the tests are writing correctly by watching them fail. Finally implement the code that passes the new expectation.
 
@@ -368,7 +364,7 @@ describe Dog do
 end
 ```
 
-###Challenge: Teach the Dog to Eat
+###Check for Understanding: Teach the Dog to Eat
 
 Write the code that passes the above specifications.
 
@@ -420,7 +416,7 @@ describe Dog do
 end
 ```
 
-###Challenge: Don't Over Eat
+###Check for Understanding: Don't Over Eat
 
 Write the code to pass the above specs!
 
@@ -584,7 +580,7 @@ end
 >
 >**before(:all)** is the same concept, except it only runs **once**, *before all* the tests inside it have started.
 
-## Challenge: Cereal Robot 
+## Check for Understanding: Cereal Robot 
 
 [Watch this video](https://www.youtube.com/watch?v=E2evC2xTNWg).
 
