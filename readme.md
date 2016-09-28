@@ -16,23 +16,23 @@ Test Driven Development leads to better code. TDD is extremely helpful when impl
 ### Where should we be now?
 *Before this workshop, developers should already be able to:*
 
-- Program in Ruby
-- Pass tests in a TDD manner
+- Program in Ruby.
+- Write code to pass existing tests.
 
 ## Do You Test?
 
 ####Place yourselves somewhere in the following ranges:
 
-* I have used TDD **or** I have never used TDD
+* I have used TDD **or** I have never used TDD.
 
-* I love the idea of TDD **or** I hate the idea of TDD
+* I love the idea of TDD **or** I hate the idea of TDD.
 
 ####Thoughts:
 
 * For those of you who are negative to testing, why? What did you or would you do instead?
 * For those of you who are positive to testing, why? What problems did it solve?
 
-<details><summary>Some possible responses...</summary>
+<!-- <details><summary>Some possible responses...</summary>
 
 * Cons
  * **Time.** It's a waste of my time and effort to test.
@@ -46,6 +46,7 @@ Test Driven Development leads to better code. TDD is extremely helpful when impl
  * **Jobs.** Testing is a job requirement across the board.
 
 </details>
+-->
 
 ## Unit vs Acceptance Tests
 
@@ -65,7 +66,7 @@ You'll see the term **test coverage** pop up pretty often. People are always aim
 
 **What are the reasons testing is so important? Why would employers love it so much?**
 
-We've asked you to write user stories. Writing unit tests is a very similar process. In fact, user
+We've asked you to write user stories. Writing unit tests is a very similar process.
 
 When we think of "testing" we tend to think of something you do *after* you've created something. With unit tests, you're encouraged to write the tests *first* before you even start writing actual code.
 
@@ -75,15 +76,15 @@ When we think of "testing" we tend to think of something you do *after* you've c
 
 **Benefits**
 
-* Fewer bugs in our code
+* Fewer bugs in our code.
 
-* Provides a clear goal in the development, that is, to make all tests to pass.
+* Provides a clear goal in the development (make all tests pass).
 
-* Allows for automation and continuous integration, ensuring that our application won’t break
+* Allows for automation and continuous integration, ensuring that our application won’t break.
 
-* A little more time upfront means a lot of time saved down the line! (Think about refactoring)
+* A lot of time saved down the line! (Think about refactoring.)
 
-**DrawBacks**
+**Drawbacks**
 
 * Requires time and effort.
 
@@ -93,13 +94,13 @@ When we think of "testing" we tend to think of something you do *after* you've c
 
 **RSpec** is a testing framework for the Ruby programming language.
 
-RSpec makes it easier to write tests. Essentially it's a Domain Specific Language for writing live specifications about your code.  It was released on May 18, 2007, so it's been around for a while.
+RSpec makes it easier to write tests. Essentially it's a Domain Specific Language for writing live specifications about your code.  
 
 > A DSL, "Domain Specific Language", is created specifically to solve problems in a particular domain and is not intended to be able to solve problems outside of it. Other DSLs include HTML or SQL. This is opposed to domain independent languages like Java, C++, Ruby, Python, PHP, JavaScript, Clojure, Rust, Scala, Erlang etc that are Turing complete (can solve any possible computation problem).
 
 ## RSpec Example
 
-Code is available here: [example-tests](./example-tests)
+Code is available in the example-tests directory: [example-tests](./example-tests)
 
 When `rspec` is run in the `example-tests` directory, what does it show?
 
@@ -133,36 +134,32 @@ describe Person do
   describe "Constructor" do
     subject(:matt) { Person.new("Matt") }
 
-    it "should create a new instance of class Person" do
+    it "creates a new instance of class Person" do
       expect(matt).to be_an_instance_of(Person)
     end
 
-    it "should have a name" do
+    it "gives each instance a name attribute and accessor" do
       expect(matt.name).to_not be_nil
     end
 
-    it "should default #language to 'English'" do
+    it "sets default language to 'English'" do
       expect(matt.language).to eq("English")
     end
   end
 
   describe "#greeting" do
-    context "for default language (English)" do
+    context "when language is English (the default)" do
       subject(:bob) { Person.new("Bob") }
 
-      it "should offer a greeting in English" do
-        expect(bob.greeting).to eql("Hello, my name is Bob.")
+      it "returns a greeting in English" do
+        expect(bob.greeting).to eq("Hello, my name is Bob.")
       end
     end
-
     context "when language is 'Italian'" do
       subject(:tony) { Person.new("Tony", "Italian") }
 
-      it "should offer a greeting in Italian" do
-        # legacy syntax - the old DSL
-        tony.greeting.should eql("Ciao, mi chiamo Tony.")
-        # equivalent to:
-        # expect(tony.greeting).to eql("Ciao, mi chiamo Tony.")
+      it "returns a greeting in Italian" do
+        expect(tony.greeting).to eq("Ciao, mi chiamo Tony.")
       end
     end
   end
@@ -235,14 +232,14 @@ Make the file and run the tests again. What happens this time? Does the constant
 Dog = Object.new
 ```
 
-Realistically we'll want our `Dog` constant to be class that creates new dogs. So let's start specing it out. We'll first want to start describing it's `.new` method. Remember, in Ruby documentation it is convention to prefix class methods with `::` and instance methods with `#`.
+Realistically we'll want our `Dog` constant to be class that creates new dogs. So let's start specing it out. We'll first want to start describing it's `.new` method. In Ruby documentation and tests, it is convention to prefix class methods with `::` and instance methods with `#`.
 
 **/spec/dog_spec.rb**
 
 ```ruby 
 describe Dog do
   describe "::new" do
-    # specs to come
+    # specs go here
   end
 end
 ```
@@ -265,7 +262,7 @@ Now add `do` at the end of the first `it` line.
 describe Dog do
   describe "::new" do
     it "initializes a new dog" do
-      #specs to come...
+      # expectations here
     end
   end
 end
@@ -301,7 +298,7 @@ We use the pattern `expect(IUT)` to "wrap" the ***Item Under Test***, so that it
 
 ###Naming your Dog
 
-Let's give our dog instances the method to get and set an attribute `name`. Obviously let's first start with the specfication.
+Let's give our dog instances the method to get and set an attribute `name`. Start with the specfication.
 
 ```ruby
 describe Dog do
@@ -316,7 +313,7 @@ describe Dog do
 end
 ```
 
->What is the minimal code one could write to pass these specifications?
+>What is the minimal code one could write to pass this test?
 
 ### Challenge: Hungry Dog
 
@@ -587,7 +584,7 @@ end
 >
 >**before(:all)** is the same concept, except it only runs **once**, *before all* the tests inside it have started.
 
-## Challenge: Cereal Robot Exercise
+## Challenge: Cereal Robot 
 
 [Watch this video](https://www.youtube.com/watch?v=E2evC2xTNWg).
 
@@ -597,19 +594,8 @@ Goal: When all the tests pass, that means the robot works. However, you're only 
 
 Constraints: Try to write everything as `describe`, `context`, and `it` blocks. Method names should start with `#`.
 
-## Garnet Example
 
-RSpec is used to test Garnet, the attendance/homework tracking app. Before any changes get pushed up to our live server, they have to pass all the tests -- an automated system rejects the changes if they don't pass.
-
-Here's what the [model tests](https://github.com/ga-dc/garnet/tree/master/spec/models) look like. Checkout a few of them... Seem familiar?
-
-## Challenge: Grand Prix Racing
-
- * Clone down [grand-prix-testing](https://github.com/sf-wdi-29/car-racing-lab) and follow the instructions.
-
-## Closing
-
-### Quiz Questions:
+## Closing Thoughts
 
 - What is the purpose Unit testing?
 - Explain what role RSpec plays in testing.
