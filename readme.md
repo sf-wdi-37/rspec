@@ -22,13 +22,13 @@ Test Driven Development leads to better code. TDD is extremely helpful when impl
 
 ## Do You Test?
 
-####Place yourselves somewhere in the following ranges:
+#### Place yourselves somewhere in the following ranges:
 
 * I have used TDD **or** I have never used TDD.
 
 * I love the idea of TDD **or** I hate the idea of TDD.
 
-####Brainstorm:
+#### Brainstorm:
 
 * For those of you who are negative to testing, why? What did you or would you do instead?
 * For those of you who are positive to testing, why? What problems did it solve?
@@ -318,10 +318,10 @@ end
 
 >What is the minimal amount of code we can write in `models/dog.rb` to pass our current expectation?
 
-##More expectations!
+## More expectations!
 
 
-###Naming your Dog
+### Naming your Dog
 
 Let's give our dog instances the method to get and set an attribute `name`. Start with the specfication.
 
@@ -393,7 +393,7 @@ describe Dog do
 end
 ```
 
-###Check for Understanding: Teach the Dog to Eat
+### Check for Understanding: Teach the Dog to Eat
 
 Write the code that passes the above specifications.
 
@@ -412,7 +412,7 @@ end
 
 </details>
 
-###Context
+### Context
 
 Image we want the eat method to behave differently in different contexts. For example if the dog is not hungry and has a `hunger_level` of `0`, we don't want the eat method to continue decrementing.   This is an important **edge case** to consider!
 
@@ -447,7 +447,7 @@ describe Dog do
 end
 ```
 
-###Check for Understanding: Don't Over Eat
+### Check for Understanding: Don't Over Eat
 
 Write the code to pass the above specs!
 
@@ -466,7 +466,7 @@ end
 
 </details>
 
-##Refactoring
+## Refactoring
 
 Do you see any opportunities to refactor? Identify them...
 
@@ -515,7 +515,7 @@ end
 
 How many times are we writing `dog = Dog.new`? It seems we'll have to do that at the beginning of most specifications.
 
-###Subject Blocks
+### Subject Blocks
 
 We could use `before`, `let`, or `subject` to help us refactor these specifications. Let's prefer using `subject` as the dog is the subject, or thing we are testing. `let` is similar, but may be used when one wants to set up a variable that isn't necessarily the subject, for example it could be the food the dog is eating. Whereas `let` and `subject` are used to setup "dependencies", `before` which is best used to setup an action in advance, such as opening a connection with a database.
 
@@ -561,7 +561,7 @@ describe Dog do
 end
 ```
 
-###Before Blocks
+### Before Blocks
 
 We can further refactor the above code with a `before` block in order to setup the state of our dog by calling a few methods on it.
 
