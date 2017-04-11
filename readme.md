@@ -373,7 +373,7 @@ end
 
 </details>
 
-###Feeding the Dog
+### Feeding the Dog
 
 Let's impliment a method `eat` which decrements a dog's hunger level when invoked. How would we translate this specification in RSpec tests?
 
