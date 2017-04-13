@@ -1,6 +1,6 @@
 # Solution Code
 
-##You-Do: Solution 1:
+## You-Do: Solution 1:
 
 ```rb
 it "has a String for an Name" do
@@ -10,7 +10,7 @@ end
 
 ```
 
-##You-Do: Solution 2:
+## You-Do: Solution 2:
 ```rb
 it "has a hunger level thats an Integer" do
   dog = Dog.new("Rover", 10)
@@ -18,7 +18,7 @@ it "has a hunger level thats an Integer" do
 end
 ```
 
-##You-Do: Solution 3:
+## You-Do: Solution 3:
 
 ```rb
 describe "#set_hunger_level" do
