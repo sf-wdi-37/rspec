@@ -185,8 +185,7 @@ it "returns a greeting in English" do
 end
 ```
 
-We use `expect(IUT)` to "wrap" the actual value we receive from the *Item Under Test*. The `expect` method will run the code it takes in as an argument to get an actual value.   Then we chain on the `to` method. This `to` method takes in a matcher. 
-
+We use `expect(_____)` to "wrap" the code we want to test, sometimes known as the Item Under Test. The `expect` method will run the code to get an **actual** value.   Then we chain on the `to` method (or sometimes `not_to`). This `to` method takes in a matcher method. The matcher method tells us about the **expected** behavior. 
 
 > Item Under Test: `bob.greeting`
 
