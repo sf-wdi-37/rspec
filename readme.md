@@ -55,10 +55,10 @@ As our applications increase in complexity, we need a saftey net. We need someth
 
 Think back to the way you code. You probably create a part of a web page, then browse to that page to test it to ensure that it is doing as you expect. Then you add another feature. Then test both features. Then you add a third feature and test. Have you ever had the experience of accidentally breaking an earlier feature?  Imagine if you had a battery of automated specs which run against your code so you can see if your new changes fit your new requirements *and* every requirement that came before this.
 
-## Types of Tests 
+## Types of Tests
 
 
-**Unit tests** check the smallest units of code. Unit tests are intended to test individual methods to ensure a specific input results in a specific output. These are the tests we'll focus on today. 
+**Unit tests** check the smallest units of code. Unit tests are intended to test individual methods to ensure a specific input results in a specific output. These are the tests we'll focus on today.
 
 **Integration Tests** combine components pr parts of an app together, sometimes just a few and other times the entire system.  They test the that components work together and that the interface between them is behaving as we expect.
 
@@ -99,7 +99,7 @@ When we think of "testing" we tend to think of something you do *after* you've c
 
 ## What is RSpec?
 
-**RSpec** is a Ruby  gem that makes it easier to write tests. 
+**RSpec** is a Ruby  gem that makes it easier to write tests.
 
 ## RSpec Example
 
@@ -171,7 +171,7 @@ end
 
 >What does `expect(matt).to be_an_instance_of(Person)` mean in regular English?
 
-#### Think, pair, share: What aren't we testing? 
+#### Think, pair, share: What aren't we testing?
 
  Think like a developer. What code exists that we aren't testing? What examples would be good to clarify what our code can do?
 
@@ -179,17 +179,17 @@ end
 
 Let's take a look at the structure of one test:
 
-```ruby 
+```ruby
 it "returns a greeting in English" do
   expect(bob.greeting).to eq("Hello, my name is Bob.")
 end
 ```
 
-We use `expect(_____)` to "wrap" the code we want to test, sometimes known as the Item Under Test. The `expect` method will run the code to get an **actual** value.   Then we chain on the `to` method (or sometimes `not_to`). This `to` method takes in a matcher method. The matcher method tells us about the **expected** behavior. 
+We use `expect(_____)` to "wrap" the code we want to test, sometimes known as the Item Under Test. The `expect` method will run the code to get an **actual** value.   Then we chain on the `to` method (or sometimes `not_to`). This `to` method takes in a matcher method. The matcher method tells us about the **expected** behavior.
 
 > Item Under Test: `bob.greeting`
 
-> Expectation: `expect(bob.greeting).to` 
+> Expectation: `expect(bob.greeting).to`
 
 > Matcher: `eq("Hello, my name is Bob.")`   
 
@@ -230,7 +230,7 @@ Enter the command `rspec --init`. What just happened?
 * an `.rspec` file was created, where one can specify options on how the tests are displayed
 * a `spec/spec_helper.rb` is created, which ensures the tests are run with the correct requirements and configurations
 
-Inside the `spec` directory and add a file called `dog_spec.rb`. Additionally, create a `models` directory and a file inside it, `dog.rb`, where we will define our class `Dog`.
+Create a `models` directory and a file inside it, `dog.rb`, where we will define our class `Dog`. Inside the `spec` directory and add a file called `dog_spec.rb`.
 
 >Note: Within `.rspec` file add `--color` OR in `spec/spec_helper.rb` add `config.color = true` to see colorful tests!
 
@@ -247,11 +247,9 @@ describe Dog do
 end
 ```
 
-We will specing-out or `describe` our `Dog`. A `describe` block is commonly used to split up a set of tests into sections about a certain set of tests will be focused on.
+We will specing-out or `describe`-ing our `Dog`. A `describe` block is commonly used to split up a set of tests into sections about a certain set of tests will be focused on.
 
-Now let's run `rspec`. What happened? Does the file it's require exist?
-
-Make the file and run the tests again. What happens this time? Does the constant `Dog` exist? Let's give it just enough code to satisfy the current (minimal) specifications.
+Now let's run `rspec`. What happens this time? Does the constant `Dog` exist? Let's give it just enough code to satisfy the current (minimal) specifications.
 
 **/models/dog.rb**
 
@@ -263,7 +261,7 @@ Realistically we'll want our `Dog` constant to be class that creates new dogs. S
 
 **/spec/dog_spec.rb**
 
-```ruby 
+```ruby
 describe Dog do
   describe "::new" do
     # specs go here
@@ -273,7 +271,7 @@ end
 
 Now we can start writing out some specifications related to the `new` method using and `it` block
 
-```ruby 
+```ruby
 describe Dog do
   describe "::new" do
     it "initializes a new dog"
@@ -281,11 +279,11 @@ describe Dog do
 end
 ```
 
-What is is the output now? We should get `1 example, 0 failures, 1 pending`, saying that our specification is not yet implimented.
+What is is the output now? We should get `1 example, 0 failures, 1 pending`, saying that our specification is not yet implemented.
 
 Now add `do` at the end of the first `it` line.
 
-```ruby 
+```ruby
 describe Dog do
   describe "::new" do
     it "initializes a new dog" do
@@ -299,7 +297,7 @@ end
 
 Let's make our specs actually test something.
 
-```ruby 
+```ruby
 describe Dog do
   describe "::new" do
     it "initializes a new dog" do
@@ -310,7 +308,7 @@ describe Dog do
 end
 ```
 
-> Expectation: `expect(dog).to` 
+> Expectation: `expect(dog).to`
 
 > Matcher: `be_a(Dog)`   
 
@@ -322,7 +320,7 @@ end
 
 ### Naming your Dog
 
-Let's give our dog instances the method to get and set an attribute `name`. Start with the specfication.
+Let's give our dog instances the method to get and set an attribute `name`. Start with the specification.
 
 ```ruby
 describe Dog do
@@ -374,15 +372,15 @@ end
 
 ### Feeding the Dog
 
-Let's impliment a method `eat` which decrements a dog's hunger level when invoked. How would we translate this specification in RSpec tests?
+Let's implement a method `eat` which decrements a dog's hunger level when invoked. How would we translate this specification in RSpec tests?
 
 **/spec/dog_spec.rb**
 
 ```ruby
 describe Dog do
   #...
-  describe "eat" do
-    it "decrements the hunger level when invoked" do
+  describe "#eat" do
+    it "decrements the hunger level when called" do
       dog = Dog.new
       dog.hunger_level = 5
       dog.eat
@@ -425,7 +423,7 @@ Use `describe` for items under tests and `context` for different states that the
 ```ruby
 describe Dog do
   #...
-  describe "eat" do
+  describe "#eat" do
     context "when the dog is hungry" do
       it "decrements the hunger level when invoked" do
         dog = Dog.new
@@ -484,14 +482,14 @@ describe Dog do
       expect(dog.name).to eq("Fido")
     end
   end
-  describe "#name" do
+  describe "#hunger_level" do
     it "allows the reading and writing of a hunger level" do
       dog = Dog.new
       dog.hunger_level = 5
       expect(dog.hunger_level).to eq(5)
     end
   end
-  describe "eat" do
+  describe "#eat" do
     context "when the dog is hungry" do
       it "decrements the hunger level when invoked" do
         dog = Dog.new
@@ -539,7 +537,7 @@ describe Dog do
       expect(dog.hunger_level).to eq(5)
     end
   end
-  describe "eat" do
+  describe "#eat" do
     context "when the dog is hungry" do
       it "decrements the hunger level when invoked" do
 
@@ -586,7 +584,7 @@ describe Dog do
       expect(dog.hunger_level).to eq(5)
     end
   end
-  describe "eat" do
+  describe "#eat" do
     context "when the dog is hungry" do
       it "decrements the hunger level when invoked" do
         dog.eat
@@ -610,7 +608,7 @@ end
 >
 >**before(:all)** is the same concept, except it only runs **once**, *before all* the tests inside it have started.
 
-## Check for Understanding: Cereal Robot 
+## Check for Understanding: Cereal Robot
 
 [Watch this video](https://www.youtube.com/watch?v=E2evC2xTNWg).
 
